@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar>
+      <button ion-button [menuToggle]="activeMenu">
+          <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Ionic Blank
+    </ion-title>
+    <!-- <ion-buttons end>
+        <button ion-button icon-only (click) = "addData()">
+          <ion-icon name="add-circle"></ion-icon>
+        </button>
+    </ion-buttons> -->
+  </ion-navbar>
+</ion-header>
+<!-- 
+<ion-content padding>
+  The world is your oyster.
+  <p>
+    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
+  </p>
+  <h3>
+    Welcome to App, {{user}}
+    Your mail is, {{email}}
+  </h3>
+</ion-content> -->
+<ion-content padding>
+  <h2 text-center>List of Employees
+      <ion-icon name="contacts"></ion-icon>
+  </h2>
+  <ion-list>
+    <ion-item-sliding *ngFor="let employee of employees;let i=index" (click)="viewDetail(employee)">
+      <ion-item no-padding>
+        <h2>
+          {{employee.name}}
+        </h2>
+        <p>
+          {{employee.designation}}
+        </p>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+  
+</ion-content>
