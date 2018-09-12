@@ -30,6 +30,7 @@ export class EditEmployeePage {
     }).then((db:SQLiteObject)=>{
       db.executeSql('SELECT id,name,lastname,contact,designation FROM EMPLOYEES WHERE id=?',[id])
       .then(res=>{
+        console.log("in edit employee current data")
         if(res.rows.length> 0){
           this.data.id = res.rows.item(0).id;
           this.data.name = res.rows.item(0).name;
@@ -63,14 +64,16 @@ export class EditEmployeePage {
       name:'check.db',
       location:'default'
     }).then((db:SQLiteObject)=>{
-      db.executeSql('UPDATE EMPLOYEES SET name=?,lastname=?,contact=?,designation=? WHERE id=?',[this.data.name,this.data.lastname,this.data.contact,this.data.designation])
+      db.executeSql('UPDATE EMPLOYEES SET name=?,lastname=?,contact=?,designation=? WHERE id=?',[this.data.name,this.data.lastname,this.data.contact,this.data.designation,this.data.id])
       .then(res=>{
+        console.log(res);
         this.toast.show('Employee Updated!','4000','center')
         .subscribe(
-          toast=> {
-            this.navCtrl.pop();
-          }
+           toast=>{
+              console.log(res);
+           }
         );
+        this.navCtrl.pop();
       })
       .catch(e=>{
         this.toast.show("Error in updating",'5000','center')

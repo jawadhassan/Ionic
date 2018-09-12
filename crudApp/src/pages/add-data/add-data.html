@@ -1,0 +1,40 @@
+<!--
+  Generated template for the AddDataPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Crud App</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <h2 text-center>Add Contact
+    <ion-icon name="contact"></ion-icon>
+  </h2>
+  <form [formGroup]="registerForm" #formDir="ngForm" (ngSubmit) ="saveData(registerForm.value)">
+    <ion-item>
+      <ion-label color="primary" floating>Name</ion-label>
+      <ion-input type="text" [(ngModel)]="data.name" (ngModelChange)="data.name=$event.toLocaleUpperCase()" name="name" formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" floating>Number</ion-label>
+      <ion-input type="tel" [(ngModel)]="data.number" name="number"  formControlName="number"></ion-input>
+    </ion-item>
+
+  <ion-item>
+    <ion-label color="primary" floating>Email</ion-label>
+    <ion-input type="email" [(ngModel)]="data.email" name="email"  (ngModelChange)="data.email=$event.toLocaleUpperCase()" formControlName="email"></ion-input>
+  </ion-item>
+
+<ion-item>
+  <ion-label color="primary" floating>Address</ion-label>
+  <ion-input type="text" [(ngModel)]="data.address" name="address"  (ngModelChange)="data.address=$event.toLocaleUpperCase()" formControlName="address"></ion-input>
+</ion-item>
+<button ion-button [disabled]="!registerForm.valid" type="submit">Submit Contact</button>
+</form>
+</ion-content>
