@@ -1,0 +1,75 @@
+import { HttpClient,HttpHeaders} from '@angular/common/http';
+import 'rxjs/add/operator/toPromise';
+import { Injectable } from '@angular/core';
+import {RequestOptions, Http} from '@angular/http';
+
+/*
+  Generated class for the RestProvider provider.
+
+  See https://angular.io/guide/dependency-injection for more info on providers
+  and Angular DI.
+*/
+@Injectable()
+export class RestProvider {
+  
+
+  //apiUrl = 'http://192.168.1.100:8080/restmessenger/webapi/myresource';
+  apiUrl = 'http://192.168.1.119:8080/restmessenger/webapi/myresource'
+  constructor(public http:HttpClient) {
+    console.log('Hello RestProvider Provider');
+  }
+
+  getEmployees(){
+    
+    return new Promise(resolve =>{
+      this.http.get(this.apiUrl+'/employees').subscribe(data =>{
+        resolve(data);
+      }, err=>{
+        console.log(err);
+      });
+    });
+  }
+
+  editEmployee(employee){
+
+  /*   var headers = new HttpHeaders();
+ 
+    headers.append("Accept", 'application/json');
+    headers.append('Content-Type', 'application/json');
+    
+    var employeedata = JSON.stringify({ contact:employee.contact,designation:employee.designation,
+    id:employee.id,lastname:employee.lastname,name:employee.name});
+  //  var jsonstring = JSON.stringify(data);
+  
+    return new Promise((resolve, reject) => {
+      //
+        this.http.post(this.apiUrl+'/edit',employeedata ,{headers:headers}).subscribe(
+        data => {
+          console.log("check"+data);
+        },
+        error => {
+          console.log(error);
+      });
+
+    }); */
+
+    var employeedata = JSON.stringify({ contact:employee.contact,designation:"CEO",
+      id:employee.id,lastname:employee.lastname,name:employee.name});
+  
+    const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
+
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiUrl+'/edit',employeedata, config)
+      .subscribe(
+        data => {
+          console.log("check"+data);
+        },
+        error => {
+          console.log(error);
+      });
+
+    });
+
+
+  } 
+}

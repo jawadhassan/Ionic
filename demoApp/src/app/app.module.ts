@@ -10,7 +10,8 @@ import {SQLite} from '@ionic-native/sqlite';
 import {Toast} from '@ionic-native/toast';
 import { LoginPage } from '../pages/login/login';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
-
+import { RestProvider } from '../providers/rest/rest';
+import { HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import {FormsModule,ReactiveFormsModule} from '@angular/forms';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
     FormsModule,
     ReactiveFormsModule
@@ -35,7 +37,8 @@ import {FormsModule,ReactiveFormsModule} from '@angular/forms';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
     SQLite,
-    Toast
+    Toast,
+    RestProvider
   ]
 })
 export class AppModule {}

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {SQLite,SQLiteObject} from '@ionic-native/sqlite';
 import {Toast} from '@ionic-native/toast';
+import {RestProvider} from '../../providers/rest/rest';
 
 /**
  * Generated class for the EditEmployeePage page.
@@ -18,12 +19,19 @@ import {Toast} from '@ionic-native/toast';
 export class EditEmployeePage {
 
   data = {id:0,name:"",lastname:"",contact:"",designation:""};
+  employee;
   constructor(public navCtrl: NavController, public navParams: NavParams, private sqlite: SQLite,
-    private toast: Toast) {
-    this.getCurrentData(navParams.get("id"));
+    private toast: Toast,public restProvider : RestProvider) {
+    //this.getCurrentData(navParams.get("id"));
+    this.data.id = this.navParams.get('employee').id;
+    this.data.name = this.navParams.get('employee').name;
+    this.data.lastname = this.navParams.get('employee').lastname;
+    this.data.contact = this.navParams.get('employee').contact;
+    this.data.designation = this.navParams.get('employee').designation;
+    this.employee = this.navParams.get('employee');
   }
 
-  getCurrentData(id){
+  /* getCurrentData(id){
     this.sqlite.create({
       name:'check.db',
       location:'default'
@@ -57,9 +65,9 @@ export class EditEmployeePage {
         }
       );
     });
-  }
+  } */
 
-  updateData(){
+  /* updateData(){
     this.sqlite.create({
       name:'check.db',
       location:'default'
@@ -90,6 +98,15 @@ export class EditEmployeePage {
         }
       )
     })
+  } */
+
+  updateData(employee){
+    this.employee = employee;
+    console.log('update Data called');
+    this.restProvider.editEmployee(this.employee).then(res =>{      
+      this.toast.show('check'+res,'4000','center')
+  }) 
+
   }
 
   ionViewDidLoad() {

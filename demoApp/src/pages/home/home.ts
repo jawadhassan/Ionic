@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service'
-
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {SQLite,SQLiteObject} from '@ionic-native/sqlite';
 import {Toast} from '@ionic-native/toast';
 import { EmployeeDetailPage } from '../employee-detail/employee-detail';
 import 'rxjs/add/operator/toPromise';
+import {RestProvider} from '../../providers/rest/rest';
 
 @Component({
   selector: 'page-home',
@@ -15,13 +15,14 @@ import 'rxjs/add/operator/toPromise';
 })
 export class HomePage {
 
-  employees : any[] = [];
+ // employees : any[] = [];
+  employees : any;
 
   /* email:String = '';
   user:String = ''; */
   constructor(public navCtrl: NavController,private auth: AuthServiceProvider,  private sqlite: SQLite,
-    private toast: Toast ) {
-  
+    private toast: Toast,public restProvider : RestProvider ) {
+      this.getEmployee();  
     
     /*let info = this.auth.getUserInfo(); 
     this.email = info['email'];
@@ -29,14 +30,22 @@ export class HomePage {
   }
 
   ionViewDidLoad(){
-    this.getData();
+    //this.getData();
+    
   }
 
   ionViewWillEnter(){
-    this.getData();
+   // this.getData();
   }
 
-  getData(){
+  getEmployee(){
+    this.restProvider.getEmployees().then(data =>{
+        this.employees = data;
+        console.log(this.employees);
+    }) 
+  }
+
+ /*  getData(){
     this.sqlite.create({
       name:'check.db',
       location:'default'
@@ -59,14 +68,21 @@ export class HomePage {
           }
         })
     })
-  }
+  } */
 
-  viewDetail(employee){
+ /*  viewDetail(employee){
     this.navCtrl.push('EmployeeDetailPage',{
       employee:employee
     });
   }
+ */
 
+viewDetail(employee){
+  this.navCtrl.push('EmployeeDetailPage',{
+    employee:employee
+  });
+}
+ 
   addData(){
     this.navCtrl.push('AddEmployeePage');
   }

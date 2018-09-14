@@ -29,7 +29,10 @@
       <ion-icon name="contacts"></ion-icon>
   </h2>
   <ion-list>
-    <ion-item-sliding *ngFor="let employee of employees;let i=index" (click)="viewDetail(employee)">
+     
+ <!--    <ion-item-sliding *ngFor="let employee of employees;let i=index" (click)="viewDetail(employee)">
+ -->
+ <ion-item-sliding  *ngFor="let employee of employees" (click)="viewDetail(employee)">      
       <ion-item no-padding>
         <h2>
           {{employee.name}}

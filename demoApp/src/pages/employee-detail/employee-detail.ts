@@ -22,6 +22,7 @@ export class EmployeeDetailPage {
   contact;
   designation;
   id;
+  employee;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private sqlite: SQLite,
     private toast: Toast) {
@@ -29,19 +30,31 @@ export class EmployeeDetailPage {
 
   ionViewDidLoad() {
 
+    this.employee = this.navParams.get('employee');
     this.id = this.navParams.get('employee').id;
-    this.getCurrentData(this.id);
+    this.name = this.navParams.get('employee').name;
+    this.lastname = this.navParams.get('employee').lastname;
+    this.contact = this.navParams.get('employee').contact;
+    this.designation = this.navParams.get('employee').designation;
+   // this.getCurrentData(this.id);
     console.log('ionViewDidLoad EmployeeDetailPage');
   }
 
-  editData(id){
+  
+  editData(employee){
+    this.navCtrl.push('EditEmployeePage',{
+      employee:employee
+    });
+  } 
+
+  /* editData(id){
     this.navCtrl.push('EditEmployeePage',{
       id:id
     });
-  }
+  } */
 
 
-  getCurrentData(id){
+  /* getCurrentData(id){
     this.sqlite.create({
       name:'check.db',
       location:'default'
@@ -70,10 +83,10 @@ export class EmployeeDetailPage {
       );
     });
   }
- 
-  ionViewWillEnter(){
+  */
+ /*  ionViewWillEnter(){
     this.getCurrentData(this.id);
-  }
+  } */
   
 
 }
