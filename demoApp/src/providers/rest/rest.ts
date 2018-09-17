@@ -30,8 +30,9 @@ export class RestProvider {
     });
   }
 
-  editEmployee(employee){
+  editEmployee(data){
 
+    var employee = data;
   /*   var headers = new HttpHeaders();
  
     headers.append("Accept", 'application/json');
@@ -53,7 +54,7 @@ export class RestProvider {
 
     }); */
 
-    var employeedata = JSON.stringify({ contact:employee.contact,designation:"CEO",
+    var employeedata = JSON.stringify({ contact:employee.contact,designation:employee.designation,
       id:employee.id,lastname:employee.lastname,name:employee.name});
   
     const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
@@ -62,14 +63,36 @@ export class RestProvider {
       this.http.post(this.apiUrl+'/edit',employeedata, config)
       .subscribe(
         data => {
+          resolve(data);
           console.log("check"+data);
         },
         error => {
+         
           console.log(error);
       });
 
     });
 
-
   } 
+
+  saveEmployee(data){
+    var newemployee = data;
+    var newEmployeeData = JSON.stringify({ contact:newemployee.contact,designation:newemployee.designation,
+      id:newemployee.id,lastname:newemployee.lastname,name:newemployee.name});
+      const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
+      return new Promise((resolve, reject) => {
+        this.http.post(this.apiUrl+'/add',newEmployeeData, config)
+        .subscribe(
+          data => {
+            resolve(data);
+            console.log("check"+data);
+          },
+          error => {
+            console.log(error);
+        });
+  
+      });
+  
+
+  }
 }

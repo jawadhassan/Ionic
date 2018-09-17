@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {SQLite,SQLiteObject} from '@ionic-native/sqlite';
-import {Toast} from '@ionic-native/toast';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { ToastController } from 'ionic-angular';
+import {RestProvider} from '../../providers/rest/rest';
 /**
  * Generated class for the AddEmployeePage page.
  *
@@ -17,13 +17,13 @@ import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms'
 })
 export class AddEmployeePage {
 
-  data = {name:"",lastname:"",contact:"",designation:""};
+  data = {id:"",name:"",lastname:"",contact:"",designation:""};
 
   registerForm : FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private sqlite: SQLite,
-    private toast: Toast,
-    public formBuilder : FormBuilder ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public formBuilder : FormBuilder,
+    public restProvider : RestProvider, private toastCtrl: ToastController ) {
       this.registerForm = formBuilder.group({
         name:['',Validators.compose([Validators.required])],
         lastname : ['',Validators.compose([Validators.required])],
@@ -36,7 +36,7 @@ export class AddEmployeePage {
     console.log('ionViewDidLoad AddEmployeePage');
   }
 
-  saveEmployee(){
+  /* saveEmployee(){
     if(this.registerForm.valid){
       this.sqlite.create({
         name:'check.db',
@@ -66,6 +66,39 @@ export class AddEmployeePage {
       });
     }
  
+  }
+ */
+  saveEmployee(){
+   
+    this.restProvider.saveEmployee(this.data).then(res =>{
+      console.log(res);
+      let toast = this.toastCtrl.create({
+        message: 'User was added successfully',
+        duration: 3000,
+        position: 'bottom'
+      });
+
+      toast.onDidDismiss(() => {
+        console.log('Dismissed toast');
+      });
+    
+      toast.present();
+      this.navCtrl.popToRoot();
+  
+    })
+    
+
+     /*  this.toast.show(""+res,'5000','center')
+      .subscribe(
+        toast=>{
+          this.navCtrl.popToRoot();
+        }
+      ); */
+  
+     
+
+
+
   }
 
 }

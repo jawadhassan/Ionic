@@ -15,7 +15,7 @@
 <h2 text-center>Edit Contact
   <ion-icon name="create"></ion-icon>
 </h2>
-<form (ngSubmit)="updateData(employee)">
+<form (ngSubmit)="updateData()">
   <ion-item>
     <ion-label color="primary" floating>Name</ion-label>
     <ion-input type="text" [(ngModel)] = "data.name" name="name"></ion-input>

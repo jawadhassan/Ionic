@@ -6,8 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
-import {SQLite} from '@ionic-native/sqlite';
-import {Toast} from '@ionic-native/toast';
+import { ToastController } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { RestProvider } from '../providers/rest/rest';
@@ -36,8 +35,7 @@ import { HttpClientModule} from '@angular/common/http';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
-    SQLite,
-    Toast,
+    ToastController,
     RestProvider
   ]
 })

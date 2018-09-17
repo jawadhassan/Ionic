@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {SQLite,SQLiteObject} from '@ionic-native/sqlite';
-import {Toast} from '@ionic-native/toast';
 
 /**
  * Generated class for the EmployeeDetailPage page.
@@ -24,8 +22,7 @@ export class EmployeeDetailPage {
   id;
   employee;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private sqlite: SQLite,
-    private toast: Toast) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {

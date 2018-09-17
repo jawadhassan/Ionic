@@ -3,8 +3,6 @@ import { NavController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service'
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import {SQLite,SQLiteObject} from '@ionic-native/sqlite';
-import {Toast} from '@ionic-native/toast';
 import { EmployeeDetailPage } from '../employee-detail/employee-detail';
 import 'rxjs/add/operator/toPromise';
 import {RestProvider} from '../../providers/rest/rest';
@@ -20,8 +18,7 @@ export class HomePage {
 
   /* email:String = '';
   user:String = ''; */
-  constructor(public navCtrl: NavController,private auth: AuthServiceProvider,  private sqlite: SQLite,
-    private toast: Toast,public restProvider : RestProvider ) {
+  constructor(public navCtrl: NavController,private auth: AuthServiceProvider,public restProvider : RestProvider ) {
       this.getEmployee();  
     
     /*let info = this.auth.getUserInfo(); 
@@ -31,11 +28,13 @@ export class HomePage {
 
   ionViewDidLoad(){
     //this.getData();
+    this.getEmployee();
     
   }
 
   ionViewWillEnter(){
    // this.getData();
+   this.getEmployee();
   }
 
   getEmployee(){
