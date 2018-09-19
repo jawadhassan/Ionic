@@ -8,25 +8,22 @@
 
   <ion-navbar>
     
-    <ion-title>login</ion-title>
+    <ion-title>Login</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <h2 text-center>Enter User Credentials
-    <ion-icon name="contact"></ion-icon>
-  </h2>
-  <form  (ngSubmit)="login()" #registerForm="ngForm">
+  <form [formGroup]="registerForm" (ngSubmit)="login(registerForm.value)">
     <ion-item>
       <ion-label color="primary" floating>Email</ion-label>
-      <ion-input type="text" [(ngModel)]="registerCredentials.email" name="email"></ion-input>
+      <ion-input type="text" [(ngModel)]="registerCredentials.email" name="email" formControlName="email"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label color="primary" floating>Password</ion-label>
-      <ion-input type="password" [(ngModel)]="registerCredentials.password" name="password"></ion-input>
+      <ion-input type="password" [(ngModel)]="registerCredentials.password" name="password" formControlName="password"></ion-input>
     </ion-item>
-    <button ion-button class="submit-btn" [disabled]="!registerForm.form.valid" type="submit" block>Login</button>
+    <button ion-button class="submit-btn" [disabled]="!registerForm.valid" type="submit" block>Login</button>
   </form>
 </ion-content>

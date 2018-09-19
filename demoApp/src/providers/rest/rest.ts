@@ -32,7 +32,7 @@ export class RestProvider {
 
   editEmployee(data){
 
-    var employee = data;
+   
   /*   var headers = new HttpHeaders();
  
     headers.append("Accept", 'application/json');
@@ -53,6 +53,8 @@ export class RestProvider {
       });
 
     }); */
+
+    var employee = data;
 
     var employeedata = JSON.stringify({ contact:employee.contact,designation:employee.designation,
       id:employee.id,lastname:employee.lastname,name:employee.name});
@@ -80,6 +82,7 @@ export class RestProvider {
     var newEmployeeData = JSON.stringify({ contact:newemployee.contact,designation:newemployee.designation,
       id:newemployee.id,lastname:newemployee.lastname,name:newemployee.name});
       const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
+     
       return new Promise((resolve, reject) => {
         this.http.post(this.apiUrl+'/add',newEmployeeData, config)
         .subscribe(
@@ -92,7 +95,23 @@ export class RestProvider {
         });
   
       });
-  
-
   }
+
+
+  delete(id){
+    const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
+    return new Promise((resolve, reject) => {
+    this.http.post(this.apiUrl+'/'+id+'/delete', config)
+    .subscribe(
+      data => {
+        resolve(data);
+        console.log("check delete"+data);
+      },
+      error => {
+        console.log(error);
+    });
+
+  });
+} 
+  
 }

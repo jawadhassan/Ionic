@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import {RestProvider} from '../../providers/rest/rest';
+import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 /**
  * Generated class for the EditEmployeePage page.
@@ -18,9 +19,11 @@ import {RestProvider} from '../../providers/rest/rest';
 export class EditEmployeePage {
 
   data = {id:0,name:"",lastname:"",contact:"",designation:""};
+  editForm : FormGroup;
   employee;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private toastCtrl: ToastController,public restProvider : RestProvider) {
+    private toastCtrl: ToastController,public restProvider : RestProvider,
+    public formBuilder : FormBuilder) {
     //this.getCurrentData(navParams.get("id"));
     this.data.id = this.navParams.get('employee').id;
     this.data.name = this.navParams.get('employee').name;
@@ -28,6 +31,15 @@ export class EditEmployeePage {
     this.data.contact = this.navParams.get('employee').contact;
     this.data.designation = this.navParams.get('employee').designation;
     this.employee = this.navParams.get('employee');
+
+    this.editForm = formBuilder.group({
+      name:['',Validators.compose([Validators.required])],
+      lastname : ['',Validators.compose([Validators.required])],
+      contact:['',Validators.compose([Validators.required])],
+      designation:['',Validators.compose([Validators.required])],
+      id:['',Validators.compose([Validators.required])]
+
+    });
   }
 
   /* getCurrentData(id){

@@ -15,24 +15,24 @@
 <h2 text-center>Edit Contact
   <ion-icon name="create"></ion-icon>
 </h2>
-<form (ngSubmit)="updateData()">
+<form  [formGroup]="editForm" #formDir="ngForm"  (ngSubmit)="updateData(editForm.value)">
   <ion-item>
     <ion-label color="primary" floating>Name</ion-label>
-    <ion-input type="text" [(ngModel)] = "data.name" name="name"></ion-input>
+    <ion-input type="text" [(ngModel)] = "data.name" name="name" formControlName="name"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label color="primary" floating>LastName</ion-label>
-    <ion-input type="text" [(ngModel)] = "data.lastname" name="lastname" ></ion-input>
+    <ion-input type="text" [(ngModel)] = "data.lastname" name="lastname" formControlName="lastname"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label color="primary" floating>Contact</ion-label>
-    <ion-input type="tel" [(ngModel)] = "data.contact" name="contact" ></ion-input>
+    <ion-input type="tel" [(ngModel)] = "data.contact" name="contact" formControlName="contact"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label color="primary" floating>Designation</ion-label>
-    <ion-input type="text" [(ngModel)] = "data.designation" name="designation"></ion-input>
+    <ion-input type="text" [(ngModel)] = "data.designation" name="designation" formControlName="designation"></ion-input>
   </ion-item>
-  <ion-input type="hidden" [(ngModel)]="data.id" name="id"></ion-input>
-  <button ion-button type="submit"  block>Submit</button>
+  <ion-input type="hidden" [(ngModel)]="data.id" name="id" formControlName="id"></ion-input>
+  <button ion-button class="submit-btn" type="submit"  [disabled]="!editForm.valid" block>Submit</button>
 </form>
 </ion-content>

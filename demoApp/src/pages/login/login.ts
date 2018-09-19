@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController,AlertController,LoadingController,Loading, NavParams } from 'ionic-angular';
-import {AuthServiceProvider} from '../../providers/auth-service/auth-service';
-import {HomePage} from '../home/home';
+import { IonicPage, NavController, AlertController, LoadingController, Loading, NavParams } from 'ionic-angular';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { HomePage } from '../home/home';
+import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 /**
  * Generated class for the LoginPage page.
  *
@@ -15,43 +16,59 @@ import {HomePage} from '../home/home';
   templateUrl: 'login.html',
 })
 export class LoginPage {
+
+
+  registerCredentials = { email:"", password:""};
+
   loading: Loading;
-  registerCredentials = {email:'',password:''};
-  constructor(public navCtrl: NavController, public navParams: NavParams,private auth:AuthServiceProvider,private alertCtrl:AlertController,private loadingCtrl:LoadingController) {
+
+  registerForm: FormGroup;
+
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public formBuilder: FormBuilder,
+    private auth: AuthServiceProvider,
+    private alertCtrl: AlertController,
+    private loadingCtrl: LoadingController) {
+
+    this.registerForm = formBuilder.group({
+      email: ['', Validators.compose([Validators.required])],
+      password: ['', Validators.compose([Validators.required])],
+
+    });
   }
 
 
-  public login(){
+  public login() {
     this.showLoading();
-    this.auth.login(this.registerCredentials).subscribe(allowed=>
-    {
-      if(allowed){
+    this.auth.login(this.registerCredentials).subscribe(allowed => {
+      if (allowed) {
         this.navCtrl.setRoot(HomePage);
-      }else{
+      } else {
         this.showError("Access Denied");
       }
     },
-    error=>{
-      this.showError(error);
-    });
+      error => {
+        this.showError(error);
+      });
 
   }
 
-  showLoading(){
+  showLoading() {
     this.loading = this.loadingCtrl.create({
-      content : 'Please wait...',
-      dismissOnPageChange : true
+      content: 'Please wait...',
+      dismissOnPageChange: true
     });
     this.loading.present();
   }
 
-  showError(text){
+  showError(text) {
     this.loading.dismiss();
 
     let alert = this.alertCtrl.create({
-      title : 'Fail',
-      subTitle : text,
-      buttons : ['OK']
+      title: 'Fail',
+      subTitle: text,
+      buttons: ['OK']
     });
     alert.present();
   }

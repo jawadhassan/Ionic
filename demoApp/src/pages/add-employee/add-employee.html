@@ -17,7 +17,12 @@
 <ion-icon name="contact"></ion-icon>
 </h2>
 <form [formGroup]="registerForm" #formDir="ngForm" (ngSubmit)="saveEmployee(registerForm.value)">
-   <ion-item>
+  <ion-item>
+    <ion-label fixed>Avatar</ion-label>
+    <ion-avatar avatar item-end>
+    </ion-avatar>
+  </ion-item> 
+  <ion-item>
     <ion-label color="primary" floating>Name</ion-label>
     <ion-input type="text" [(ngModel)] = "data.name" name="name" formControlName="name"></ion-input>
   </ion-item>

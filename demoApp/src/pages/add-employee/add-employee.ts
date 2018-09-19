@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ToastController } from 'ionic-angular';
-import {RestProvider} from '../../providers/rest/rest';
+import { RestProvider } from '../../providers/rest/rest';
 /**
  * Generated class for the AddEmployeePage page.
  *
@@ -17,19 +17,20 @@ import {RestProvider} from '../../providers/rest/rest';
 })
 export class AddEmployeePage {
 
-  data = {id:"",name:"",lastname:"",contact:"",designation:""};
+  data = { id: "", name: "", lastname: "", contact: "", designation: "" };
 
-  registerForm : FormGroup;
+  registerForm: FormGroup;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public formBuilder : FormBuilder,
-    public restProvider : RestProvider, private toastCtrl: ToastController ) {
-      this.registerForm = formBuilder.group({
-        name:['',Validators.compose([Validators.required])],
-        lastname : ['',Validators.compose([Validators.required])],
-        contact:['',Validators.compose([Validators.required])],
-        designation:['',Validators.compose([Validators.required])]
-      });
+    public formBuilder: FormBuilder,
+    public restProvider: RestProvider, private toastCtrl: ToastController) {
+      
+    this.registerForm = formBuilder.group({
+      name: ['', Validators.compose([Validators.required])],
+      lastname: ['', Validators.compose([Validators.required])],
+      contact: ['', Validators.compose([Validators.required])],
+      designation: ['', Validators.compose([Validators.required])]
+    });
   }
 
   ionViewDidLoad() {
@@ -68,9 +69,9 @@ export class AddEmployeePage {
  
   }
  */
-  saveEmployee(){
-   
-    this.restProvider.saveEmployee(this.data).then(res =>{
+  saveEmployee() {
+
+    this.restProvider.saveEmployee(this.data).then(res => {
       console.log(res);
       let toast = this.toastCtrl.create({
         message: 'User was added successfully',
@@ -81,21 +82,21 @@ export class AddEmployeePage {
       toast.onDidDismiss(() => {
         console.log('Dismissed toast');
       });
-    
+
       toast.present();
       this.navCtrl.popToRoot();
-  
-    })
-    
 
-     /*  this.toast.show(""+res,'5000','center')
-      .subscribe(
-        toast=>{
-          this.navCtrl.popToRoot();
-        }
-      ); */
-  
-     
+    })
+
+
+    /*  this.toast.show(""+res,'5000','center')
+     .subscribe(
+       toast=>{
+         this.navCtrl.popToRoot();
+       }
+     ); */
+
+
 
 
 

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {RestProvider} from '../../providers/rest/rest';
+import { ToastController } from 'ionic-angular';
 
 /**
  * Generated class for the EmployeeDetailPage page.
@@ -22,7 +24,8 @@ export class EmployeeDetailPage {
   id;
   employee;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public restProvider: RestProvider,
+    private toastCtrl: ToastController) {
   }
 
   ionViewDidLoad() {
@@ -43,6 +46,28 @@ export class EmployeeDetailPage {
       employee:employee
     });
   } 
+
+
+  delete(id) {
+
+    this.restProvider.delete(id).then(res => {
+      console.log("Check Delete"+res);
+      let toast = this.toastCtrl.create({
+        message: 'User was deleted successfully',
+        duration: 3000,
+        position: 'bottom'
+      });
+
+      toast.onDidDismiss(() => {
+        console.log('Dismissed toast');
+      });
+
+      toast.present();
+      this.navCtrl.popToRoot();
+
+    })
+  }  
+
 
   /* editData(id){
     this.navCtrl.push('EditEmployeePage',{

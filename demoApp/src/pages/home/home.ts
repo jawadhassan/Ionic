@@ -20,6 +20,7 @@ export class HomePage {
   user:String = ''; */
   constructor(public navCtrl: NavController,private auth: AuthServiceProvider,public restProvider : RestProvider ) {
       this.getEmployee();  
+      this.doRefresh(0);
     
     /*let info = this.auth.getUserInfo(); 
     this.email = info['email'];
@@ -75,6 +76,15 @@ export class HomePage {
     });
   }
  */
+
+doRefresh(refresher){
+  this.restProvider.getEmployees().then(data =>{
+    console.log(this.employees);
+    this.employees = data;
+    if(refresher != 0)
+                 refresher.complete();
+  }); 
+}
 
 viewDetail(employee){
   this.navCtrl.push('EmployeeDetailPage',{

@@ -4,7 +4,7 @@
           <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
-      Ionic Blank
+      Employee Management System
     </ion-title>
     <!-- <ion-buttons end>
         <button ion-button icon-only (click) = "addData()">
@@ -28,6 +28,9 @@
   <h2 text-center>List of Employees
       <ion-icon name="contacts"></ion-icon>
   </h2>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-list>
      
  <!--    <ion-item-sliding *ngFor="let employee of employees;let i=index" (click)="viewDetail(employee)">
