@@ -14,5 +14,18 @@
 
 
 <ion-content padding>
-
+  <ion-list>
+    <ion-item-sliding  *ngFor="let leave of leaves" >      
+         <ion-item no-padding>
+          <ion-label> 
+           <h2>
+             {{leave.desc}}
+           </h2>
+          </ion-label>
+              <ion-chip [color]="leave.status" item-end>
+              <ion-label>{{leave.status}}</ion-label>               
+            </ion-chip>  
+         </ion-item>
+       </ion-item-sliding>
+     </ion-list>
 </ion-content>

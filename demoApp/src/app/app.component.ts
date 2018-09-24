@@ -21,7 +21,8 @@ export class MyApp {
     });
 
     this.pages = [
-      {title:'AddEmployee',component:'AddEmployeePage'}
+      {title:'Add Employee',component:'AddEmployeePage'},
+      {title:'Leave Requests',component:'LeaveRequestPage'}
     ];
   }
 

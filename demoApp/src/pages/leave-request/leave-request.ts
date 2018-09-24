@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import 'rxjs/add/operator/toPromise';
+import {RestProvider} from '../../providers/rest/rest';
 
 /**
  * Generated class for the LeaveRequestPage page.
@@ -15,11 +17,35 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class LeaveRequestPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  leaves : any;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,public restProvider : RestProvider) {
+    this.getLeaves();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LeaveRequestPage');
+
+
+  ionViewDidLoad(){
+    //this.getData();
+    this.getLeaves();
   }
+
+  ionViewWillEnter(){
+    // this.getData();
+    this.getLeaves();
+   }
+
+   getLeaves(){
+    this.restProvider.getLeaves().then(data =>{
+        this.leaves = data;
+        console.log(this.leaves);
+    }) 
+  }
+
+ 
+   
+
+
+
 
 }

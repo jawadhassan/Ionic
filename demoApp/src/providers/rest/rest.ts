@@ -113,5 +113,17 @@ export class RestProvider {
 
   });
 } 
+
+
+getLeaves(){
+    
+  return new Promise(resolve =>{
+    this.http.get(this.apiUrl+'/leaves').subscribe(data =>{
+      resolve(data);
+    }, err=>{
+      console.log(err);
+    });
+  });
+}
   
 }
