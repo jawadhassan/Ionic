@@ -20,7 +20,7 @@ export class LeaveRequestPage {
   leaves : any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public restProvider : RestProvider) {
-    this.getLeaves();
+    this.doRefresh(0);
   }
 
 
@@ -47,6 +47,14 @@ export class LeaveRequestPage {
      this.navCtrl.push('LeaveRequestDetailPage',{
       leave:leave
     });
+  }
+
+  doRefresh(refresher){
+    this.restProvider.getLeaves().then(data =>{
+      this.leaves = data;
+      if(refresher != 0)
+                   refresher.complete();
+    }); 
   }
    
 

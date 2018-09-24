@@ -19,7 +19,6 @@ export class HomePage {
   /* email:String = '';
   user:String = ''; */
   constructor(public navCtrl: NavController,private auth: AuthServiceProvider,public restProvider : RestProvider ) {
-      this.getEmployee();  
       this.doRefresh(0);
     
     /*let info = this.auth.getUserInfo(); 

@@ -9,11 +9,11 @@
   <ion-navbar>
     <ion-title>LeaveRequest</ion-title>
   </ion-navbar>
-
 </ion-header>
-
-
 <ion-content padding>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
   <ion-list>
     <ion-item-sliding  *ngFor="let leave of leaves" (click)="viewDetail(leave)" >      
          <ion-item no-padding>

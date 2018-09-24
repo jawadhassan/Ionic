@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {RestProvider} from '../../providers/rest/rest';
-import { ToastController } from 'ionic-angular';
+import { ToastController,LoadingController  } from 'ionic-angular';
 
 /**
  * Generated class for the LeaveRequestDetailPage page.
@@ -24,8 +24,9 @@ export class LeaveRequestDetailPage {
   employee;
   employeeId;
   leaveId;
+  loading: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public restProvider : RestProvider,private toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public restProvider : RestProvider,private toastCtrl: ToastController, public loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
@@ -47,8 +48,10 @@ export class LeaveRequestDetailPage {
   }
 
   leaveApproval(id,status){
+    this.showLoader();
     this.restProvider.leaveApproval(id,status).then(data =>{
       console.log(data);
+      this.loading.dismiss();
       let toast = this.toastCtrl.create({
         message:data.message,
         duration: 3000,
@@ -64,6 +67,14 @@ export class LeaveRequestDetailPage {
 
     })
       
+  }
+
+  showLoader(){
+    this.loading = this.loadingCtrl.create({
+        content: 'Submitting...'
+    });
+  
+    this.loading.present();
   }
 
 
