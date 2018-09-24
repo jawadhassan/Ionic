@@ -15,7 +15,7 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item-sliding  *ngFor="let leave of leaves" >      
+    <ion-item-sliding  *ngFor="let leave of leaves" (click)="viewDetail(leave)" >      
          <ion-item no-padding>
           <ion-label> 
            <h2>

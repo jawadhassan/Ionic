@@ -125,5 +125,29 @@ getLeaves(){
     });
   });
 }
+
+getEmployee(id){
+  return new Promise(resolve =>{
+    this.http.get(this.apiUrl+"/"+id+"/get").subscribe(data=>{
+      console.log(data);
+      resolve(data);
+    }, err=>{
+      console.log(err);
+    })
+  });
+}
+
+
+leaveApproval(id,status){
+  return new Promise((resolve,reject) =>{
+    const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
+    this.http.post(this.apiUrl+"/"+id+"/"+status+"/leaveApproval",config).subscribe(data=>{
+      console.log(data);
+      resolve(data);
+    },err=>{
+      console.log(err);
+    })
+  })
+}
   
 }

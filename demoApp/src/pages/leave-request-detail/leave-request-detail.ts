@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {RestProvider} from '../../providers/rest/rest';
+import { ToastController } from 'ionic-angular';
 
 /**
  * Generated class for the LeaveRequestDetailPage page.
@@ -15,11 +17,58 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class LeaveRequestDetailPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  name;
+  desc;
+  toDate;
+  fromDate;
+  employee;
+  employeeId;
+  leaveId;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,public restProvider : RestProvider,private toastCtrl: ToastController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LeaveRequestDetailPage');
+    this.desc = this.navParams.get('leave').desc;
+    this.toDate = this.navParams.get('leave').to;
+    this.fromDate = this.navParams.get('leave').from;
+    this.employeeId = this.navParams.get('leave').employeeId;
+    this.getEmployee(this.employeeId);
+    this.leaveId = this.navParams.get('leave').id;
   }
+
+
+  getEmployee(employeeId){
+    this.restProvider.getEmployee(employeeId).then(data =>{
+        this.employee = data;
+        this.name = this.employee.name;
+    }) 
+  }
+
+  leaveApproval(id,status){
+    this.restProvider.leaveApproval(id,status).then(data =>{
+      console.log(data);
+      let toast = this.toastCtrl.create({
+        message:data.message,
+        duration: 3000,
+        position: 'bottom'
+      });
+
+      toast.onDidDismiss(() => {
+        console.log('Dismissed toast');
+      });
+
+      toast.present();
+      this.navCtrl.popToRoot();
+
+    })
+      
+  }
+
+
+
+  
+
 
 }

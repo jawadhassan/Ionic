@@ -43,6 +43,11 @@ export class LeaveRequestPage {
   }
 
  
+  viewDetail(leave){
+     this.navCtrl.push('LeaveRequestDetailPage',{
+      leave:leave
+    });
+  }
    
 
 
