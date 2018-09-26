@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
+import {RestProvider} from '../../providers/rest/rest';
+
 /*
   Generated class for the AuthServiceProvider provider.
 
@@ -9,29 +11,49 @@ import { Observable } from 'rxjs/Observable';
 */
 export class User{
   name:String;
-  email:String;
+  usermail:String;
+  privilege:String;
+  id:String;
 
-  constructor(name:String,email:String){
+  constructor(name:String,usermail:String,privilege:String,id:String){
     this.name = name;
-    this.email = email;
+    this.usermail = usermail;
+    this.privilege= privilege;
+    this.id=id;
   }
 }
 @Injectable()
 export class AuthServiceProvider {
 
   currentUser : User;
+  employee:any;
 
-
+  constructor(public restProvider: RestProvider) {
+  }
 
   public login(credentials){
     if(credentials.email == null || credentials.password == null){
       return Observable.throw("Please insert credentials");
     }else{
       return Observable.create(observer=>{
-        let access = (credentials.password === "pass" && credentials.email === "email");
-        this.currentUser = new User('Admin','admin@Sapphire');
-        observer.next(access);
-        observer.complete();
+        this.restProvider.authenticate(credentials.email,credentials.password).then(data =>{
+          this.employee = data;
+        //  console.log("Check Admin"+this.employee.name); 
+        //  let access = (credentials.password === "pass" && credentials.email === "man@abc.com");
+        
+        let access = (credentials.password === this.employee.password && credentials.email === this.employee.usermail);
+        //  this.currentUser = new User('Martin','admin@Sapphire','admin');
+        if(access){
+          this.currentUser = new User(this.employee.name,this.employee.usermail,this.employee.privilege,this.employee.id);
+
+        }
+        
+          observer.next(access);
+          observer.complete();
+        
+        });
+
+      
       });
     }
   }

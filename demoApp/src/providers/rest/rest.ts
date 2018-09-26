@@ -57,7 +57,7 @@ export class RestProvider {
     var employee = data;
 
     var employeedata = JSON.stringify({ contact:employee.contact,designation:employee.designation,
-      id:employee.id,lastname:employee.lastname,name:employee.name});
+      id:employee.id,lastname:employee.lastname,name:employee.name,usermail:employee.email,password:employee.password});
   
     const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
 
@@ -80,7 +80,7 @@ export class RestProvider {
   saveEmployee(data){
     var newemployee = data;
     var newEmployeeData = JSON.stringify({ contact:newemployee.contact,designation:newemployee.designation,
-      id:newemployee.id,lastname:newemployee.lastname,name:newemployee.name});
+      id:newemployee.id,lastname:newemployee.lastname,name:newemployee.name,usermail:newemployee.email,password:newemployee.password});
       const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
      
       return new Promise((resolve, reject) => {
@@ -142,6 +142,17 @@ leaveApproval(id,status){
   return new Promise((resolve,reject) =>{
     const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
     this.http.post(this.apiUrl+"/"+id+"/"+status+"/leaveApproval",config).subscribe(data=>{
+      console.log(data);
+      resolve(data);
+    },err=>{
+      console.log(err);
+    })
+  })
+}
+
+authenticate(email,pass){
+  return new Promise((resolve,reject)=>{
+    this.http.get(this.apiUrl+'/'+email+'/'+pass+'/AuthEmployee').subscribe(data=>{
       console.log(data);
       resolve(data);
     },err=>{

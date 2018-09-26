@@ -32,6 +32,14 @@
     <ion-label color="primary" floating>Designation</ion-label>
     <ion-input type="text" [(ngModel)] = "data.designation" name="designation" formControlName="designation"></ion-input>
   </ion-item>
+  <ion-item>
+    <ion-label color="primary" floating>Email</ion-label>
+    <ion-input type="email" [(ngModel)] = "data.email" name="email" formControlName="email"></ion-input>
+  </ion-item> 
+  <ion-item>
+    <ion-label color="primary" floating>Password</ion-label>
+    <ion-input type="password" [(ngModel)] = "data.password" name="password" formControlName="password"></ion-input>
+  </ion-item> 
   <ion-input type="hidden" [(ngModel)]="data.id" name="id" formControlName="id"></ion-input>
   <button ion-button class="submit-btn" type="submit"  [disabled]="!editForm.valid" block>Submit</button>
 </form>

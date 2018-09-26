@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {RestProvider} from '../../providers/rest/rest';
 import { ToastController,LoadingController  } from 'ionic-angular';
+import { stringify } from '@angular/core/src/render3/util';
 
 /**
  * Generated class for the LeaveRequestDetailPage page.
@@ -51,9 +52,10 @@ export class LeaveRequestDetailPage {
     this.showLoader();
     this.restProvider.leaveApproval(id,status).then(data =>{
       console.log(data);
+      let obj = JSON.parse(data.toString());
       this.loading.dismiss();
       let toast = this.toastCtrl.create({
-        message:data.message,
+        message:obj,
         duration: 3000,
         position: 'bottom'
       });

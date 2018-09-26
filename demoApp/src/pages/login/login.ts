@@ -3,6 +3,8 @@ import { IonicPage, NavController, AlertController, LoadingController, Loading, 
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { HomePage } from '../home/home';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import {RestProvider} from '../../providers/rest/rest';
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -29,13 +31,17 @@ export class LoginPage {
     public formBuilder: FormBuilder,
     private auth: AuthServiceProvider,
     private alertCtrl: AlertController,
-    private loadingCtrl: LoadingController) {
+    private loadingCtrl: LoadingController,
+    public restProvider : RestProvider) {
 
     this.registerForm = formBuilder.group({
       email: ['', Validators.compose([Validators.required])],
       password: ['', Validators.compose([Validators.required])],
 
     });
+
+ 
+    
   }
 
 
@@ -43,7 +49,14 @@ export class LoginPage {
     this.showLoading();
     this.auth.login(this.registerCredentials).subscribe(allowed => {
       if (allowed) {
-        this.navCtrl.setRoot(HomePage);
+       // this.auth.getUserInfo().privilege ='user';
+        if(this.auth.getUserInfo().privilege==='admin'){
+          console.log('User Privilege'+this.auth.getUserInfo().privilege);
+          this.navCtrl.setRoot(HomePage);
+        }else{
+          this.navCtrl.setRoot('UserHomePage');
+        }
+        
       } else {
         this.showError("Access Denied");
       }
@@ -75,7 +88,21 @@ export class LoginPage {
 
 
   ionViewDidLoad() {
+
+   
     console.log('ionViewDidLoad LoginPage');
+    
+}
+   
+
+    
   }
 
-}
+ 
+
+
+ 
+
+
+
+

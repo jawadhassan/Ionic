@@ -23,6 +23,7 @@ export class EmployeeDetailPage {
   designation;
   id;
   employee;
+  email;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public restProvider: RestProvider,
     private toastCtrl: ToastController) {
@@ -36,6 +37,7 @@ export class EmployeeDetailPage {
     this.lastname = this.navParams.get('employee').lastname;
     this.contact = this.navParams.get('employee').contact;
     this.designation = this.navParams.get('employee').designation;
+    this.email = this.navParams.get('employee').usermail;
    // this.getCurrentData(this.id);
     console.log('ionViewDidLoad EmployeeDetailPage');
   }

@@ -17,7 +17,7 @@ import { RestProvider } from '../../providers/rest/rest';
 })
 export class AddEmployeePage {
 
-  data = { id: "", name: "", lastname: "", contact: "", designation: "" };
+  data = { id: "", name: "", lastname: "", contact: "", designation: "",email:"",password:"" };
 
   registerForm: FormGroup;
 
@@ -29,7 +29,9 @@ export class AddEmployeePage {
       name: ['', Validators.compose([Validators.required])],
       lastname: ['', Validators.compose([Validators.required])],
       contact: ['', Validators.compose([Validators.required])],
-      designation: ['', Validators.compose([Validators.required])]
+      designation: ['', Validators.compose([Validators.required])],
+      email: ['', Validators.compose([Validators.required])],
+      password: ['', Validators.compose([Validators.required])]
     });
   }
 

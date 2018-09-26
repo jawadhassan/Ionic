@@ -18,7 +18,7 @@ import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms'
 })
 export class EditEmployeePage {
 
-  data = {id:0,name:"",lastname:"",contact:"",designation:""};
+  data = {id:0,name:"",lastname:"",contact:"",designation:"",email:"",password:""};
   editForm : FormGroup;
   employee;
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -30,6 +30,10 @@ export class EditEmployeePage {
     this.data.lastname = this.navParams.get('employee').lastname;
     this.data.contact = this.navParams.get('employee').contact;
     this.data.designation = this.navParams.get('employee').designation;
+    console.log("Check Email"+this.navParams.get('employee').email);
+    this.data.email = this.navParams.get('employee').usermail;
+    this.data.password = this.navParams.get('employee').password;
+    
     this.employee = this.navParams.get('employee');
 
     this.editForm = formBuilder.group({
@@ -37,6 +41,8 @@ export class EditEmployeePage {
       lastname : ['',Validators.compose([Validators.required])],
       contact:['',Validators.compose([Validators.required])],
       designation:['',Validators.compose([Validators.required])],
+      email: ['', Validators.compose([Validators.required])],
+      password: ['', Validators.compose([Validators.required])],
       id:['',Validators.compose([Validators.required])]
 
     });
