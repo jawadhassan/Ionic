@@ -2,8 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav,Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { AuthServiceProvider } from '../providers/auth-service/auth-service';
-import { HomePage } from '../pages/home/home';
 
 @Component({
   templateUrl: 'app.html'
@@ -12,11 +10,9 @@ export class MyApp {
   rootPage:any = 'LoginPage';
   //rootPage:any;
 
-  @ViewChild(Nav) nav: Nav;
-  pages: Array<{title:string, component:any}>;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
-    private auth: AuthServiceProvider) {
+
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     
     
     platform.ready().then(() => {
@@ -31,25 +27,7 @@ export class MyApp {
      // this.checkPreviousAuthorization();
     });
     //console.log("Check"+auth.isAdmin)
-  
-   
-  
-    if(this.auth.getUserInfo().privilege==='admin'){
-      this.pages = [
-        {title:'Add Employee',component:'AddEmployeePage'},
-        {title:'Leave Requests',component:'LeaveRequestPage'}
-      ];  
-    }else{
-      this.pages = [
-        {title:'Add Leave Requests',component:'UserLeaveRequestPage'}
-      ];  
-    }
-  }
 
-  openPage(page){
-    console.log('openPage called')
-    this.nav.push(page.component);
-  }
 
  /*   checkPreviousAuthorization(): void { 
 
@@ -72,4 +50,4 @@ export class MyApp {
     } 
 }  */
 }
-
+}

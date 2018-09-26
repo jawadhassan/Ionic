@@ -26,7 +26,7 @@ export class LoginPage {
 
   registerForm: FormGroup;
 
-  id :any;
+  id :String;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -53,11 +53,15 @@ export class LoginPage {
       if (allowed) {
        // this.auth.getUserInfo().privilege ='user';
         if(this.auth.getUserInfo().privilege==='admin'){
-          this.navCtrl.setRoot(HomePage);
+         // this.navCtrl.setRoot(HomePage);
+         this.id = this.auth.getUserInfo().id
+         this.navCtrl.setRoot('MenuPage',{
+          id:this.id
+         });
         }else{
           this.id = this.auth.getUserInfo().id
           console.log("LoginId",this.id);
-          this.navCtrl.setRoot('UserHomePage',{
+         this.navCtrl.setRoot('MenuPage',{
              id:this.id
           });
 

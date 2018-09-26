@@ -63,6 +63,10 @@ public getUserInfo() : User{
  return this.currentUser; 
 }
 
+isLoggedIn() {
+  return this.currentUser != null;
+}
+
 
 public logOut(){
   return Observable.create(observer =>{

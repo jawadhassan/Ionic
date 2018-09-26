@@ -21,7 +21,7 @@ export class UserHomePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public restProvider : RestProvider) {
     this.id = this.navParams.get("id");
-    console.log(this.id);
+    console.log("Check User Leave ID"+this.id);
     this.doRefresh(0);
   }
 
