@@ -45,7 +45,7 @@ export class AuthServiceProvider {
         //  this.currentUser = new User('Martin','admin@Sapphire','admin');
         if(access){
           this.currentUser = new User(this.employee.name,this.employee.usermail,this.employee.privilege,this.employee.id);
-
+          console.log(this.currentUser);  
         }
         
           observer.next(access);
@@ -62,6 +62,7 @@ export class AuthServiceProvider {
 public getUserInfo() : User{
  return this.currentUser; 
 }
+
 
 public logOut(){
   return Observable.create(observer =>{

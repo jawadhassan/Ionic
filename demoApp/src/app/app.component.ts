@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav,Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { HomePage } from '../pages/home/home';
 
 @Component({
@@ -14,7 +15,8 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
   pages: Array<{title:string, component:any}>;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
+    private auth: AuthServiceProvider) {
     
     
     platform.ready().then(() => {
@@ -28,11 +30,20 @@ export class MyApp {
 
      // this.checkPreviousAuthorization();
     });
-
-    this.pages = [
-      {title:'Add Employee',component:'AddEmployeePage'},
-      {title:'Leave Requests',component:'LeaveRequestPage'}
-    ];
+    //console.log("Check"+auth.isAdmin)
+  
+   
+  
+    if(this.auth.getUserInfo().privilege==='admin'){
+      this.pages = [
+        {title:'Add Employee',component:'AddEmployeePage'},
+        {title:'Leave Requests',component:'LeaveRequestPage'}
+      ];  
+    }else{
+      this.pages = [
+        {title:'Add Leave Requests',component:'UserLeaveRequestPage'}
+      ];  
+    }
   }
 
   openPage(page){

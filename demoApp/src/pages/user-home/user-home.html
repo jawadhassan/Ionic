@@ -7,12 +7,29 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>UserHome</ion-title>
+    <button ion-button [menuToggle]="activeMenu">
+          <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>LeaveRequest</ion-title>
   </ion-navbar>
-
 </ion-header>
-
-
 <ion-content padding>
-
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+  <ion-list>
+    <ion-item-sliding  *ngFor="let leave of leaves" (click)="viewDetail(leave)">      
+         <ion-item no-padding>
+          <ion-label> 
+           <h2>
+             {{leave.desc}}
+           </h2>
+          </ion-label>
+              <ion-chip [color]="leave.status" item-end>
+              <ion-label>{{leave.status}}</ion-label>               
+            </ion-chip>  
+         </ion-item>
+       </ion-item-sliding>
+     </ion-list>
 </ion-content>
+
