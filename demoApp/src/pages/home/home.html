@@ -37,6 +37,9 @@
  -->
  <ion-item-sliding  *ngFor="let employee of employees" (click)="viewDetail(employee)">      
       <ion-item no-padding>
+          <ion-avatar item-start>
+              <img [src]="getImgContent(employee.avatar)">
+            </ion-avatar>
         <h2>
           {{employee.name}}
         </h2>

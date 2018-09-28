@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {RestProvider} from '../../providers/rest/rest';
 import { ToastController } from 'ionic-angular';
+import { DomSanitizer,SafeUrl } from '@angular/platform-browser';
 
 /**
  * Generated class for the EmployeeDetailPage page.
@@ -24,9 +25,10 @@ export class EmployeeDetailPage {
   id;
   employee;
   email;
+  avatar;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public restProvider: RestProvider,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,private sanitizer: DomSanitizer) {
   }
 
   ionViewDidLoad() {
@@ -38,6 +40,8 @@ export class EmployeeDetailPage {
     this.contact = this.navParams.get('employee').contact;
     this.designation = this.navParams.get('employee').designation;
     this.email = this.navParams.get('employee').usermail;
+    this.avatar = this.navParams.get('employee').avatar;
+
    // this.getCurrentData(this.id);
     console.log('ionViewDidLoad EmployeeDetailPage');
   }
@@ -69,6 +73,10 @@ export class EmployeeDetailPage {
 
     })
   }  
+
+  getImgContent(): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl(this.avatar);
+  }
 
 
   /* editData(id){

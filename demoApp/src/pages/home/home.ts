@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import { EmployeeDetailPage } from '../employee-detail/employee-detail';
 import 'rxjs/add/operator/toPromise';
 import {RestProvider} from '../../providers/rest/rest';
+import { DomSanitizer,SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'page-home',
@@ -15,10 +16,11 @@ export class HomePage {
 
  // employees : any[] = [];
   employees : any;
+  
 
   /* email:String = '';
   user:String = ''; */
-  constructor(public navCtrl: NavController,private auth: AuthServiceProvider,public restProvider : RestProvider ) {
+  constructor(public navCtrl: NavController,private auth: AuthServiceProvider,public restProvider : RestProvider,private sanitizer: DomSanitizer ) {
       this.doRefresh(0);
     
     /*let info = this.auth.getUserInfo(); 
@@ -99,6 +101,11 @@ viewDetail(employee){
     this.auth.logOut().subscribe(succ =>{
       this.navCtrl.setRoot('LoginPage')
     })
+  }
+
+  
+  getImgContent(data): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl(data);
   }
 
 }
