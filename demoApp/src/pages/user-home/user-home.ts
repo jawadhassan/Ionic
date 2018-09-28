@@ -54,6 +54,8 @@ export class UserHomePage {
   doRefresh(refresher){
     this.restProvider.getAppliedLeaves(this.id).then(data =>{
       this.leaves = data;
+      if(refresher != 0)
+                 refresher.complete();
     })   
   }
 

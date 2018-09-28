@@ -51,6 +51,10 @@ export class AuthServiceProvider {
           observer.next(access);
           observer.complete();
         
+        }).catch(error=>{
+          console.log(error);
+          observer.next(false);
+          observer.complete();
         });
 
       
@@ -69,6 +73,7 @@ isLoggedIn() {
 
 
 public logOut(){
+  console.log('Logout auth called');
   return Observable.create(observer =>{
     this.currentUser = null;
     observer.next(true);

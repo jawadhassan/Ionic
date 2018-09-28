@@ -13,8 +13,8 @@ import {RequestOptions, Http} from '@angular/http';
 export class RestProvider {
   
 
-  //apiUrl = 'http://192.168.1.100:8080/restmessenger/webapi/myresource';
-  apiUrl = 'http://192.168.1.119:8080/restmessenger/webapi/myresource'
+  apiUrl = 'http://192.168.1.100:8080/restmessenger/webapi/myresource';
+ // apiUrl = 'http://192.168.1.119:8080/restmessenger/webapi/myresource'
   constructor(public http:HttpClient) {
     console.log('Hello RestProvider Provider');
   }
@@ -171,5 +171,22 @@ getAppliedLeaves(id){
     })
   })
 }
-  
+
+applyLeave(data){
+  var leaveRequest = data;
+
+
+  var newRequestData = JSON.stringify({ desc:leaveRequest.desc,to:leaveRequest.to,from:leaveRequest.from,employeeId:leaveRequest.employeeId,status:leaveRequest.status});
+  return new Promise((resolve,reject)=>{
+  const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
+  this.http.post(this.apiUrl+'/addleave',newRequestData,config).subscribe(data=>{
+    console.log(data)
+    resolve(data);
+  },err=>{
+      console.log(err);
+  })
+})
+} 
+
+
 }

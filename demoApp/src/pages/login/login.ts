@@ -99,10 +99,13 @@ export class LoginPage {
 
 
   ionViewDidLoad() {
-
-   
     console.log('ionViewDidLoad LoginPage');
-    
+}
+
+ionViewCanEnter(){
+  if(this.auth.isLoggedIn()){
+    return false;
+  }
 }
    
 

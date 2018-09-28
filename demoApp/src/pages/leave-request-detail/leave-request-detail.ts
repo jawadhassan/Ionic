@@ -26,6 +26,7 @@ export class LeaveRequestDetailPage {
   employeeId;
   leaveId;
   loading: any;
+  resp:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public restProvider : RestProvider,private toastCtrl: ToastController, public loadingCtrl: LoadingController) {
   }
@@ -52,10 +53,11 @@ export class LeaveRequestDetailPage {
     this.showLoader();
     this.restProvider.leaveApproval(id,status).then(data =>{
       console.log(data);
-      let obj = JSON.parse(data.toString());
       this.loading.dismiss();
+     // this.resp=data;
+    
       let toast = this.toastCtrl.create({
-        message:obj,
+        message:'Leave request status updated successfully',
         duration: 3000,
         position: 'bottom'
       });

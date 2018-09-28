@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav} from 'ionic-angular';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,MenuController,LoadingController, Loading } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { HomePage } from '../../pages/home/home';
 /**
@@ -18,12 +18,13 @@ import { HomePage } from '../../pages/home/home';
 export class MenuPage {
   rootPage: any;
   id:String;
+  loading: Loading;
   //rootPage:any;
 
   @ViewChild(Nav) nav: Nav;
   pages: Array<{title:string, page:any}>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private auth: AuthServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private auth: AuthServiceProvider,public menu: MenuController,private loadingCtrl: LoadingController) {
     this.id = this.navParams.get("id");
     console.log("Menu Page"+this.id)
   }
@@ -62,8 +63,27 @@ ionViewCanEnter() {
   return this.auth.isLoggedIn();
 }
 
+logout(){ 
+  this.auth.logOut().subscribe(logout => {
+    if (logout) {  
+    this.menu.enable(false);
+    this.showLoading();
+    this.nav.setRoot('LoginPage');
+    }
+  });
+}
+
+showLoading() {
+  this.loading = this.loadingCtrl.create({
+    content: 'Please wait...',
+    dismissOnPageChange: true
+  });
+  this.loading.present();
+}
+
 openPage(page){
-  console.log('openPage called')
+  console.log('openPage called');
+  this.menu.close();
   this.nav.push(page,{
     id:this.id
   });

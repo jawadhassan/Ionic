@@ -14,5 +14,20 @@
 
 
 <ion-content padding>
-
+  <form [formGroup]="registerForm" #formDir="ngForm" (ngSubmit)="applyLeave(registerForm.value)">
+    <ion-item>
+      <ion-label color="primary" floating>Description</ion-label>
+      <ion-input type="text" [(ngModel)] = "data.desc" name="desc" formControlName="desc"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" floating>From</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="data.from" name="from" formControlName="from"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" floating>To</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="data.to"  name="to" formControlName="to"></ion-datetime>
+    </ion-item>
+    <ion-input type="hidden" [(ngModel)]="data.employeeId" name="employeeId" formControlName="employeeId"></ion-input>
+    <button ion-button type="submit" [disabled]="!registerForm.valid" block>Submit</button> 
+  </form>
 </ion-content>
