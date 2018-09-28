@@ -19,6 +19,9 @@ export class MenuPage {
   rootPage: any;
   id:String;
   loading: Loading;
+  userprofile:String;
+  usermail:String;
+  username:String;
   //rootPage:any;
 
   @ViewChild(Nav) nav: Nav;
@@ -31,9 +34,12 @@ export class MenuPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MenuPage');
-    
+   
     if(this.auth.getUserInfo().privilege==='admin'){
       console.log("Check");
+      this.userprofile = this.auth.getUserAvatar();
+      this.username = this.auth.getUserInfo().name;
+      this.usermail = this.auth.getUserInfo().usermail;
       this.pages = [
         {title:'Add Employee',page:'AddEmployeePage'},
         {title:'Leave Requests',page:'LeaveRequestPage'}
@@ -49,7 +55,6 @@ export class MenuPage {
       this.openPage('UserHomePage');
 
     }
-    console.log(this.pages);
   }
 
   

@@ -67,6 +67,10 @@ public getUserInfo() : User{
  return this.currentUser; 
 }
 
+public getUserAvatar(): String{
+  return this.employee.avatar;
+}
+
 isLoggedIn() {
   return this.currentUser != null;
 }

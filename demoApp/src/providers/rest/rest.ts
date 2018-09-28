@@ -13,8 +13,8 @@ import {RequestOptions, Http} from '@angular/http';
 export class RestProvider {
   
 
-  apiUrl = 'http://192.168.1.100:8080/restmessenger/webapi/myresource';
- // apiUrl = 'http://192.168.1.119:8080/restmessenger/webapi/myresource'
+  //apiUrl = 'http://192.168.1.100:8080/restmessenger/webapi/myresource';
+  apiUrl = 'http://192.168.1.119:8080/restmessenger/webapi/myresource';
   constructor(public http:HttpClient) {
     console.log('Hello RestProvider Provider');
   }
